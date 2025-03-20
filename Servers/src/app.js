@@ -17,40 +17,45 @@ const http_1 = __importDefault(require("http"));
 const socket_io_1 = require("../node_modules/socket.io");
 const server = (0, express_1.default)();
 exports.server = server;
+server.use((0, cors_1.default)({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+}));
 const IoServer = http_1.default.createServer(server);
 exports.IoServer = IoServer;
 const io = new socket_io_1.Server(IoServer, {
     cors: {
-        origin: '*',
-        methods: ['GET', 'POST']
+        origin: "*",
+        methods: ["GET", "POST"],
     },
 });
-io.on('connection', (socket) => {
+io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`);
     // socket.on('join_room', (data) => {
     //   socket.join(data);
     // })
-    socket.on('send_message', (data) => {
-        socket.broadcast.emit('receive_message', data);
+    socket.on("send_message", (data) => {
+        socket.broadcast.emit("receive_message", data);
     });
 });
 server.use(express_1.default.json());
 //-------------------cors config--------------------//
-server.use(body_parser_1.default.urlencoded({ extended: true, limit: '50mb' }));
-server.use(body_parser_1.default.json({ limit: '50mb' }));
+server.use(body_parser_1.default.urlencoded({ extended: true, limit: "50mb" }));
+server.use(body_parser_1.default.json({ limit: "50mb" }));
 server.use((0, cookie_parser_1.default)());
-server.use((0, morgan_1.default)('dev'));
+server.use((0, morgan_1.default)("dev"));
 server.use((_req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Allow-Headers', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Headers", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
     next();
 });
 //
 server.use(passport_1.default.initialize());
 passport_1.default.use(Passport_1.default);
-server.use('/api', index_1.default);
+server.use("/api", index_1.default);
 server.use((0, cors_1.default)());
 server.use((err, _req, res, _next) => {
     const status = err.status || 500;
