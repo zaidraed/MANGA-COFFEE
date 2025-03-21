@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { InitialState, logOut } from "../../features/user/userSlice";
 import { useState, useEffect, useRef } from "react";
 import "../../scss/Chat/Chat.scss";
-const socket = io("http://localhost:5000");
+const socket = io("https://manga-coffee-gilt.vercel.app");
 import { BiMailSend } from "react-icons/bi";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { Link } from "react-router-dom";

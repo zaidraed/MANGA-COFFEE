@@ -18,7 +18,7 @@ const socket_io_1 = require("../node_modules/socket.io");
 const server = (0, express_1.default)();
 exports.server = server;
 server.use((0, cors_1.default)({
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 }));

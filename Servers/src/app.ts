@@ -14,7 +14,7 @@ const server = express();
 
 server.use(
   cors({
-    origin: "https://manga-coffee-gilt.vercel.app/",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
