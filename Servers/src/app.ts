@@ -14,7 +14,7 @@ const server = express();
 
 server.use(
   cors({
-    origin: "*",
+    origin: ["http://localhost:3000", "https://manga-coffee-gilt.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -23,8 +23,9 @@ server.use(
 const IoServer = http.createServer(server);
 const io = new Server(IoServer, {
   cors: {
-    origin: "*",
+    origin: ["http://localhost:3000", "https://manga-coffee-gilt.vercel.app"],
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
